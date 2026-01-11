@@ -1,28 +1,12 @@
 {
-  "builds": [
-    {
-      "src": "oceanoselecto/asgi.py",
-      "use": "@vercel/python"
-    },
-    {
-      "src": "build_files.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "staticfiles"
-      }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/**/*.py": {
+      "excludeFiles": "{tests/**,__tests__/**,**/*.test.py,**/test_*.py,fixtures/**,__fixtures__/**,testdata/**,sample-data/**,static/**,assets/**}"
     }
-  ],
+  },
   "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "oceanoselecto/asgi.py"
-    }
+    { "src": "/static/(.*)", "dest": "/staticfiles/$1" },
+    { "src": "/(.*)", "dest": "api/wsgi.py" }
   ]
 }
