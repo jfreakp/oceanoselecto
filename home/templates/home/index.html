@@ -1,11 +1,102 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ title }} • Oceanoselecto{% endblock %}
+{% block title %}CamarónGo{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>Página de inicio</h1>
-    <p>Bienvenido a Oceanoselecto. Esta es la página de inicio de la app <strong>home</strong>.</p>
-    <a class="btn" href="/admin/">Ir al admin</a>
+<!-- HeroSection -->
+<div class="@container">
+  <div class="@[480px]:p-4">
+    <div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-start justify-end px-4 pb-10 @[480px]:px-10" style="background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAghk7pbMtDGgCKRZ1BxJk5Ie6pBb4dfhqDQNDEB9m2vIXgH56UPkacAAnPeVpays5UtpLnHgkscVU4yioZxmscaiUZkgENjrVgkvgkZI37at6PnqBPcPLvahlqvqlofHvWXl_KRX4o2Vcq4ZOBSlJPz5-LuvZQTyDte5nIn3j0mjjj-Ir49vJuin8ywyfgMPp23J0e0PN_js0hJMi-gq-y-Fpnsy38w1v-aZmBUU9X0ExxmTCEDkKXUcU9hmIb7k3nYlUqhfoVtJQ');">
+      <div class="flex flex-col gap-2 text-left">
+        <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl">El mejor camarón, del productor a tu mesa</h1>
+        <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base">Descubre una variedad de camarón fresco y de alta calidad en nuestro marketplace.</h2>
+      </div>
+      <div class="flex-wrap gap-3 flex">
+        <a href="#productos" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-primary text-slate-900 text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base">Explorar Productos</a>
+      </div>
+    </div>
   </div>
+</div>
+
+<!-- Product Categories Section -->
+<section id="productos" class="py-8">
+  <h2 class="text-slate-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Nuestras Variedades</h2>
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+    <div class="bg-cover bg-center flex flex-col rounded-lg justify-end p-4 aspect-square" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZH5u2T4kRe0nr5FWIZ0ETbs-U8cjRkk8x3T0hzyWwXQNPm9h5-llyd0Y1H7sTJP4u_Bzd1012XdJ5xqFdJKGk4qMruQF1AMxXL9n30rN4le3pqZ3ma8tX3Ic3oF6mrcx_BFkThJOvgPClgy_IsnPfUH2foHx6h64KJytUfqWfKKGah2JH1JaefEBhiDEU-QLQH_ly1qVjLCwx-rqfVsb-jKRNHALCOe3Gp8BTBGI-MQRpZ94UCogj3uXVa_2xKjGShkPjxgioTq0');">
+      <p class="text-white text-base font-bold leading-tight">Camarón Blanco</p>
+    </div>
+    <div class="bg-cover bg-center flex flex-col rounded-lg justify-end p-4 aspect-square" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBApfqqOciEA1eqaxsaZ8Q1ovQz2sKCwm3o18fxeGVG4JTxaQgzsGsBSOFR1PajcL0IPIltW5X1aYQ7AbByyIxOND3csx704d6uslyimRiOyO5EZTb9GZxwjGGeTr8aS4RhphOfM4DrtjF_AGmwtxtGsH8YnN5Np64hOc0c9H7GP3LST9Q2T0gZSjhLtwWodI9_s8nCHTNwzwLPK-10oJRvNwAbdcrD60YtDivSi-skCncZ8b4KmhWin7brXEJyR_bCTWvJLYn0Mko');">
+      <p class="text-white text-base font-bold leading-tight">Camarón Tigre</p>
+    </div>
+    <div class="bg-cover bg-center flex flex-col rounded-lg justify-end p-4 aspect-square" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuBx1SfCIwqw1OScmgVzBRgbRJT9uSikI8GD12y5uV8QMTXEPbQFTS3_s4KCHWVDN30BY4NqRO2cFXU4sEVWmuZwnX4OrqvosrgGB2htvaerPvUPdRc9_iapzag8te3OWsh_DT1QjVJ6sFTtkzaAyJRhRPu4L43fzqlzTizM-EPLHlnL3Cf1Q7DjmYf2-to-rPbFvmqM5l4CERLtCcMXJYvcd1YAtDPFIYhJ2-g9Xy6Yn97A5Q8ctUdbwW9-6kQvkYZ8N05M2LIwA2o');">
+      <p class="text-white text-base font-bold leading-tight">Langostinos</p>
+    </div>
+    <div class="bg-cover bg-center flex flex-col rounded-lg justify-end p-4 aspect-square" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8fxNTzbNSYFmc52tunlK-3JAwvgtLdy9V-KmGdSIUabPpk4P2QRd2_p7rqxgrqitWGKmh4QPsaazR6PeMqq3dgpAyh_bQI0i4iGy4bFD1UMNmiGu1NX91QU6xVIOLuKEUz3ZeBiSAkDAQ_Y1Yb1sLBfDxwApJUMB1_k-vtqtN2zF7C-jytB1J8AKHwlyU5T8YY5U3tN-oLJfaaz5d060zAxZICkv-CFn4kkgvwjWp92O3DCXXFBS6TWjsKn53_GC0QHDyLGLYYeo');">
+      <p class="text-white text-base font-bold leading-tight">Camarón Rosado</p>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-8 px-4">
+  <h2 class="text-slate-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pb-5 pt-5 text-center">¿Cómo funciona?</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="flex flex-col items-center text-center">
+      <div class="flex items-center justify-center size-16 bg-primary/20 rounded-full mb-4">
+        <span class="material-symbols-outlined text-primary text-3xl">search</span>
+      </div>
+      <h3 class="text-slate-900 dark:text-white font-bold text-lg mb-1">1. Busca tu producto</h3>
+      <p class="text-slate-600 dark:text-slate-400 text-sm">Explora nuestras categorías y encuentra el camarón perfecto para ti.</p>
+    </div>
+    <div class="flex flex-col items-center text-center">
+      <div class="flex items-center justify-center size-16 bg-primary/20 rounded-full mb-4">
+        <span class="material-symbols-outlined text-primary text-3xl">shopping_cart</span>
+      </div>
+      <h3 class="text-slate-900 dark:text-white font-bold text-lg mb-1">2. Compra de forma segura</h3>
+      <p class="text-slate-600 dark:text-slate-400 text-sm">Añade al carrito y paga con nuestro sistema seguro y confiable.</p>
+    </div>
+    <div class="flex flex-col items-center text-center">
+      <div class="flex items-center justify-center size-16 bg-primary/20 rounded-full mb-4">
+        <span class="material-symbols-outlined text-primary text-3xl">local_shipping</span>
+      </div>
+      <h3 class="text-slate-900 dark:text-white font-bold text-lg mb-1">3. Recibe tu pedido fresco</h3>
+      <p class="text-slate-600 dark:text-slate-400 text-sm">Entregamos tu pedido directamente en tu puerta, garantizando la frescura.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="py-8">
+  <h2 class="text-slate-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Productos Destacados</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
+      <img class="w-full h-32 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPwwXs5SUuUjh4v0NuwCR2ynddD2q2Q7hFNCcLRWX_vogV27Txl3S2EGrRLfEsAC4Cf3b-Yn4CTjUMjx447mtEwSvRwm5902Rxqp3DmQuqO0XTkG4Cz21kSUdQh6mOgMScKxoLOqSy02vY3ZjDs_geb2lyCY1utqKm13oSAPui7ITmqHEtJ54Mh7qzd2ktx8IahbnEV6bMHupTNy4GAtswdHawTZGdyPO8mlPsqV7WntJmms8Gjw4Bw9utGnV8s3h-l-Le8Y1Nqew" alt="Camarón Tigre Gigante">
+      <div class="p-4">
+        <h3 class="font-bold text-slate-800 dark:text-white">Camarón Tigre Gigante</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">Precio: $25.50 / kg</p>
+      </div>
+    </div>
+    <div class="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
+      <img class="w-full h-32 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOCZOXeaoyITdQUr8yEwhRAIZLT4UMYqBkmhbaKyI7Dz6a3HuWYVLADFPCF8AaJzBbf1p8SPci6eB17aNSX2OQtSOIT1APrt2_Pazyh1UIp4WqNCkOD6G2VjJ6KZoXmpuwxQ_v2vfLtjb10m-IQ5ek5zQauP5FXlDsQw_ds62WO80xs76Z0I-aZL-8Omkg7IsXqkR5qwsBKIfQvpT-2tAvBqP11t_4ZTCp67Y-JJus5w0b3YWf4hTgPM-eezp12A1IAVkMkW1-7yQ" alt="Camarón Blanco Fresco">
+      <div class="p-4">
+        <h3 class="font-bold text-slate-800 dark:text-white">Camarón Blanco Fresco</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">Precio: $18.00 / kg</p>
+      </div>
+    </div>
+    <div class="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
+      <img class="w-full h-32 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwZ6Y_3b52RPBja-8rUxJweeD4un4V_RlQaD2TsoXexKH1_sNy_PPhxdaHRfo-iLq9X-7qfegtFDhIvfa0rhG6i3ehnYnTzlE1UshyQQGHrcvjJT8R9prnnRR0bZHIQJ1qhgRDljet76SiN1cQR-OCVKmN1cQsFOkFD5hs98AAhLrhuySOFPhgz_6E6xnT_8wMGs-HJYLoP56nROVzWdkK6W8iN1v4680Z9CGk5ajEqIRipe2wGlaRefB40xglKru20lle2XIw6d4" alt="Langostinos Cocidos">
+      <div class="p-4">
+        <h3 class="font-bold text-slate-800 dark:text-white">Langostinos Cocidos</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">Precio: $22.75 / kg</p>
+      </div>
+    </div>
+    <div class="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-sm">
+      <img class="w-full h-32 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYIT4i7TtLQHWrffzWDX_9fn9tjENMye7oRcNvoSFYsQshkWsn_dSM7izKGBN4kNYwb9xtedhoU_IDhNi7J2DVPIf6OO955mHcZhp8EDcwdBahth5fPw2OWC9NfGq2tmqmvLN1-4WuotX2uFuvt6ymjjZdujiV8R2IeQneipTTzI2ESxfNZHZwxHYLfRdiB2rpBevK0_s6onOBwRzOthJH4pjVlZ0Vv3P90QK6OUMBX9iYxBr4s1wGL5ohf4jQrGtiBuezUmfzfe0" alt="Camarón Rosado del Golfo">
+      <div class="p-4">
+        <h3 class="font-bold text-slate-800 dark:text-white">Camarón Rosado del Golfo</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400">Precio: $20.00 / kg</p>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

@@ -1,26 +1,71 @@
 {% load static %}
 <!doctype html>
-<html lang="es">
+<html class="light" lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Oceanoselecto{% endblock %}</title>
+    <title>{% block title %}Oceano Selecto{% endblock %}</title>
+  <!-- Tailwind CSS via CDN con plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Fuentes y símbolos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <!-- Config Tailwind para diseño CamarónGo -->
+  <script>
+    tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+      colors: {
+        primary: '#13daec',
+        'background-light': '#f6f8f8',
+        'background-dark': '#102022',
+      },
+      fontFamily: {
+        display: ['Work Sans', 'sans-serif'],
+      },
+      borderRadius: { DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px' },
+      },
+    },
+    };
+  </script>
+  <style>
+    .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body { min-height: max(884px, 100dvh); }
+  </style>
     {% block extra_css %}{% endblock %}
 </head>
 
-<body>
-    <header>
-        <div class="nav">
-            <a class="brand" href="/">Oceanoselecto</a>
-        </div>
-    </header>
-    <main class="container">
+<body class="bg-background-light dark:bg-background-dark font-display">
+  <!-- TopAppBar del diseño CamarónGo -->
+  <header class="sticky top-0 z-10 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 p-4 backdrop-blur-sm">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-3xl">set_meal</span>
+      <a href="/" class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">CamarónGo</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="#login" class="text-slate-700 dark:text-slate-300 text-sm font-bold leading-normal tracking-[0.015em] shrink-0">Iniciar sesión</a>
+      <a href="#crear-cuenta" class="flex min-w-[84px] items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-slate-900 text-sm font-bold leading-normal tracking-[0.015em]">Registrarse</a>
+    </div>
+  </header>
+  <main>
         {% block content %}{% endblock %}
     </main>
-    <footer>
-        <div class="container">© {{ now|default:None|date:"Y" }} Oceanoselecto</div>
-    </footer>
+  <!-- Footer del diseño CamarónGo -->
+  <footer class="bg-slate-100 dark:bg-slate-900 mt-10">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-sm">Términos y Condiciones</a>
+        <a href="#" class="text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-sm">Política de Privacidad</a>
+      </div>
+      <p class="mt-8 text-center text-sm text-slate-400 dark:text-slate-500">© {{ now|default:None|date:"Y" }} CamarónGo. Todos los derechos reservados.</p>
+    </div>
+  </footer>
     {% block extra_js %}{% endblock %}
 </body>
 
