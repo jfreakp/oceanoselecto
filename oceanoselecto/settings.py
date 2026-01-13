@@ -11,21 +11,34 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env if present
+load_dotenv(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-28%nl*l(es-3aa+0j1jesn0948pbh_7l3519vjp)el$^i1!n15'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-28%nl*l(es-3aa+0j1jesn0948pbh_7l3519vjp)el$^i1!n15')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').lower() in ("1", "true", "yes", "on")
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'www.oceanoselecto.com', 'oceanoselecto.com']
+ALLOWED_HOSTS = os.getenv(
+    'ALLOWED_HOSTS',
+    '127.0.0.1,.vercel.app,www.oceanoselecto.com,oceanoselecto.com'
+).split(',')
+
+# Optional: CSRF trusted origins for production deployments
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    'CSRF_TRUSTED_ORIGINS',
+    'https://*.vercel.app,https://oceanoselecto.com,https://www.oceanoselecto.com'
+).split(',')
 
 # Application definition
 

@@ -1,2 +1,20 @@
 .vercel
+.env
 .env*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual envs
+.venv/
+venv/
+ENV/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+*.log
