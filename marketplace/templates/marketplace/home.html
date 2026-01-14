@@ -10,77 +10,38 @@
   </h1>
 
   <div class="px-4 py-3">
-    <label class="flex flex-col min-w-40 h-14 w-full">
+    <form method="GET" class="flex flex-col min-w-40 h-14 w-full">
       <div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm">
         <div class="text-[#618689] dark:text-gray-400 flex border-none bg-white dark:bg-gray-800 items-center justify-center pl-4 rounded-l-xl border-r-0">
           <span class="material-symbols-outlined">search</span>
         </div>
-        <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111718] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-white dark:bg-gray-800 h-full placeholder:text-[#618689] dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="¿Qué tipo de camarón buscas?" value=""/>
+        <input type="text" name="q" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111718] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-white dark:bg-gray-800 h-full placeholder:text-[#618689] dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="¿Qué tipo de camarón buscas?" value="{{ query }}"/>
       </div>
-    </label>
+    </form>
   </div>
 
   <h2 class="text-[#111718] dark:text-gray-100 text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Camarones en Oferta</h2>
   <div class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
     <div class="flex items-stretch px-4 gap-4">
+      {% for producto in productos %}
       <div class="flex h-full flex-1 flex-col gap-3 rounded-xl bg-white dark:bg-gray-800 p-3 min-w-60 shadow-sm">
-        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg flex flex-col" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCq7igN1GbGKGG9BlxUoLP3gvUvNjmOtvRIjGj1q-07Lego2IldoiLbiGxat18-iLD97tgOHddnyf_dKfxq6p98j9Fe5E5xAdJtzaYC308ECQhJZ4J5bKf5eFOIeDd5NfMdIudzyycQc1VedlFJGqmqoIOJ5z4zV9py6dewVspSz3pMZw-SQPj-iYjERX8UvpT0ZY5vESgcPZrdOG1Yg8tWozwFVXm-dK9T_0sKV1DsWsVUs78GR5Mv73tOrA3UIIK0DlUjrsVUONs");'></div>
+        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg flex flex-col" 
+        style="{% if producto.imagen %}background-image: url('{{ producto.imagen.url }}');{% else %}background-color: #e5e7eb;{% endif %}"></div>
         <div>
-          <p class="text-[#111718] dark:text-white text-base font-medium leading-normal">Camarón Tigre Gigante</p>
+          <p class="text-[#111718] dark:text-white text-base font-medium leading-normal">{{ producto.nombre }}</p>
+          <div class="flex items-center gap-2 mb-3">
+            <p class="text-primary text-sm font-bold leading-normal">${{ producto.precio_venta }}/lb</p>
+          </div>
           <div class="flex items-center gap-2">
-            <p class="text-[#618689] dark:text-gray-400 text-sm font-normal leading-normal line-through">$18.99/lb</p>
-            <p class="text-primary text-sm font-bold leading-normal">$15.99/lb</p>
+            <input type="number" min="1" value="1" class="w-12 px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-[#111718] dark:text-white text-center text-sm" />
+            <button class="flex flex-1 items-center justify-center gap-2 px-3 py-2 rounded-full bg-primary text-white hover:bg-primary/80 transition">
+              <span class="material-symbols-outlined text-sm">add</span>
+              <span class="text-xs font-medium">Agregar</span>
+            </button>
           </div>
         </div>
       </div>
-      <div class="flex h-full flex-1 flex-col gap-3 rounded-xl bg-white dark:bg-gray-800 p-3 min-w-60 shadow-sm">
-        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg flex flex-col" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPBeCHWZX19Da9xMl_4dvbJ02acqMAFMTKH-kfftngUSVGPPOnaNvTETDPQ5WUOFmLqOAp-c7jrf1kYLmzZGnVa9r_swnJOAsZJ4zTMNhzXA_N13QxXIcm9mELljpZ3TbrSlqGwbZyTLI0TFawawi7LmP3AO6fusZuWLsRjV4NLiPKAyYJWNihiTvFIHlQJxXyzGS7xuazfhKC2zA2ZMd5bByG5i3utT54-lFHq9Xdm_RGT_Jk8r961eDXa9Y2eM-Swe1J7newlc4");'></div>
-        <div>
-          <p class="text-[#111718] dark:text-white text-base font-medium leading-normal">Camarón Blanco Fresco</p>
-          <div class="flex items-center gap-2">
-            <p class="text-[#618689] dark:text-gray-400 text-sm font-normal leading-normal line-through">$15.99/lb</p>
-            <p class="text-primary text-sm font-bold leading-normal">$12.99/lb</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex h-full flex-1 flex-col gap-3 rounded-xl bg-white dark:bg-gray-800 p-3 min-w-60 shadow-sm">
-        <div class="w-full bg-center bg-no-repeat aspect-[3/4] bg-cover rounded-lg flex flex-col" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDC5yskuafdMBvaS_NkkoPxGqHYQleK8kvpefVbTJTeGHzFvr9jC19mc8GRrfnHJnbWdvEVZDf-cy7qSITO7G4-APrF2IiLCEt6V75pDwmVDJte7QdX90rBZl9evW9KnwaN_jYLhE36zeTiyRJrujCwmiUlwnKrOerTFTqMZ-bRP8y2mG-6ZEa-HtOX4YFNzhiHdwmnwJWSyrwowx4MzT1rP4XWADQsFwOamfTJKpWw01Z0ILDskdLuFZYdkB6grCpfRpilp07YHSA");'></div>
-        <div>
-          <p class="text-[#111718] dark:text-white text-base font-medium leading-normal">Camarón Cocido</p>
-          <div class="flex items-center gap-2">
-            <p class="text-[#618689] dark:text-gray-400 text-sm font-normal leading-normal line-through">$21.99/lb</p>
-            <p class="text-primary text-sm font-bold leading-normal">$18.99/lb</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="text-[#111718] dark:text-gray-100 text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-8">Categorías Destacadas</h2>
-  <div class="grid grid-cols-2 gap-4 px-4">
-    <div class="flex flex-col items-center justify-center gap-2 rounded-xl bg-white dark:bg-gray-800 p-4 aspect-square shadow-sm">
-      <div class="flex items-center justify-center size-16 rounded-full bg-primary/20 text-primary">
-        <span class="material-symbols-outlined text-4xl">ac_unit</span>
-      </div>
-      <p class="text-center text-sm font-medium text-[#111718] dark:text-white">Congelado</p>
-    </div>
-    <div class="flex flex-col items-center justify-center gap-2 rounded-xl bg-white dark:bg-gray-800 p-4 aspect-square shadow-sm">
-      <div class="flex items-center justify-center size-16 rounded-full bg-primary/20 text-primary">
-        <span class="material-symbols-outlined text-4xl">waves</span>
-      </div>
-      <p class="text-center text-sm font-medium text-[#111718] dark:text-white">Fresco</p>
-    </div>
-    <div class="flex flex-col items-center justify-center gap-2 rounded-xl bg-white dark:bg-gray-800 p-4 aspect-square shadow-sm">
-      <div class="flex items-center justify-center size-16 rounded-full bg-primary/20 text-primary">
-        <span class="material-symbols-outlined text-4xl">restaurant</span>
-      </div>
-      <p class="text-center text-sm font-medium text-[#111718] dark:text-white">Pelado</p>
-    </div>
-    <div class="flex flex-col items-center justify-center gap-2 rounded-xl bg-white dark:bg-gray-800 p-4 aspect-square shadow-sm">
-      <div class="flex items-center justify-center size-16 rounded-full bg-primary/20 text-primary">
-        <span class="material-symbols-outlined text-4xl">set_meal</span>
-      </div>
-      <p class="text-center text-sm font-medium text-[#111718] dark:text-white">Con Cabeza</p>
+      {% endfor %}
     </div>
   </div>
 
