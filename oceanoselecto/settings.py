@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from urllib.parse import urlparse, parse_qs
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +32,7 @@ DEBUG = os.getenv('DEBUG', 'True').lower() in ("1", "true", "yes", "on")
 
 ALLOWED_HOSTS = os.getenv(
     'ALLOWED_HOSTS',
-    '127.0.0.1,.vercel.app,www.oceanoselecto.com,oceanoselecto.com'
+    'localhost,127.0.0.1,0.0.0.0,.vercel.app,www.oceanoselecto.com,oceanoselecto.com'
 ).split(',')
 
 # Optional: CSRF trusted origins for production deployments
@@ -50,6 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'accounts',
+    'marketplace',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +78,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -86,15 +92,63 @@ WSGI_APPLICATION = 'api.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-if os.getenv('VERCEL'):
-    DATABASES = {}
-else:
+DATABASE_URL = os.getenv('DATABASE_URL', '').strip()
+
+if not DEBUG and DATABASE_URL:
+    parsed = urlparse(DATABASE_URL)
+    query = parse_qs(parsed.query)
+    sslmode = (query.get('sslmode', ['']))[0]
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': parsed.path.lstrip('/') or '',
+            'USER': parsed.username or '',
+            'PASSWORD': parsed.password or '',
+            'HOST': parsed.hostname or '',
+            'PORT': str(parsed.port or ''),
+            'OPTIONS': ({'sslmode': sslmode} if sslmode else {}),
         }
     }
+elif DATABASE_URL:
+    # Allow overriding via DATABASE_URL even in debug if desired
+    parsed = urlparse(DATABASE_URL)
+    query = parse_qs(parsed.query)
+    sslmode = (query.get('sslmode', ['']))[0]
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': parsed.path.lstrip('/') or '',
+            'USER': parsed.username or '',
+            'PASSWORD': parsed.password or '',
+            'HOST': parsed.hostname or '',
+            'PORT': str(parsed.port or ''),
+            'OPTIONS': ({'sslmode': sslmode} if sslmode else {}),
+        }
+    }
+elif os.getenv('VERCEL'):
+    # Vercel serverless runtime doesn't use Django DB connections directly
+    DATABASES = {}
+else:
+    # Prefer Docker Compose Postgres via environment variables if provided
+    if os.getenv('DB_HOST'):
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.getenv('DB_NAME', ''),
+                'USER': os.getenv('DB_USER', ''),
+                'PASSWORD': os.getenv('DB_PASSWORD', ''),
+                'HOST': os.getenv('DB_HOST', ''),
+                'PORT': os.getenv('DB_PORT', '5432'),
+            }
+        }
+    else:
+        # Fallback to local sqlite for simple dev without Docker
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
 
 
 # Password validation
@@ -136,3 +190,27 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+# Auth redirects (configurable via environment)
+LOGIN_REDIRECT_URL = os.getenv('LOGIN_REDIRECT_URL', '/marketplace/')
+LOGOUT_REDIRECT_URL = os.getenv('LOGOUT_REDIRECT_URL', '/')
+# Authentication backends: email/username + Google OAuth + default
+AUTHENTICATION_BACKENDS = (
+    'accounts.backends.EmailOrUsernameModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Social auth (Google)
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_CLIENT_ID', '')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', '')
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.getenv('SOCIAL_AUTH_REDIRECT_IS_HTTPS', 'False').lower() in ("1", "true", "yes", "on")
+
+# Email configuration
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', '')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() in ("1", "true", "yes", "on")
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER or 'no-reply@localhost')

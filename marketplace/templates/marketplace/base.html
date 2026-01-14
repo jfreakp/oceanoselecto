@@ -1,0 +1,79 @@
+{% load static %}
+<!doctype html>
+<html class="light" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Marketplace{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#13daec',
+            'background-light': '#f6f8f8',
+            'background-dark': '#102022',
+          },
+          fontFamily: { display: ['Work Sans', 'sans-serif'] },
+          borderRadius: { DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px' },
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24 }
+    .group:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0) }
+    body { min-height: max(884px, 100dvh) }
+  </style>
+  {% block extra_css %}{% endblock %}
+  {% block extra_head %}{% endblock %}
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col">
+  <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+    <header class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-20">
+      <div class="text-[#111718] dark:text-white flex size-12 shrink-0 items-center justify-start">
+        <span class="material-symbols-outlined text-3xl">menu</span>
+      </div>
+      <h2 class="text-[#111718] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">CamaronGo</h2>
+      <div class="flex items-center justify-end gap-1">
+        <a href="#" class="flex size-10 items-center justify-center rounded-full bg-transparent text-[#111718] dark:text-white">
+          <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+        </a>
+        <div class="relative group">
+          <button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-transparent focus:border-primary transition-all">
+            <img alt="User Avatar" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgktBbVFFL7F_8X30oKU6KwwCOP5Ne9mjWnktKLqmVI3sT1qtn7GwN-MI3eHNOk5w9mkfOKZTgikCyR5oOndlJI4Cjkg3C2minMJ8l0xfgugioQsMBnAH4o_wRAqMxrFoYW2Q4ZYnbgu6CiLZqNLURWf9lTG2TUl1148ggDK_VbiT0x4MZjcaZtF76iXr0ap8cj28AAyjAPoI5OXBkkrXMkLdxiKnaAu0g8RZhNkqMAmuQ-ft37X18YzhbLWFkEKADlikIcK4O270"/>
+          </button>
+          <div class="dropdown-menu invisible opacity-0 absolute right-0 mt-2 w-48 origin-top-right rounded-xl bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 transform translate-y-[-10px] z-30">
+            <div class="py-1" role="menu" aria-orientation="vertical">
+              <a class="flex items-center px-4 py-3 text-sm text-[#111718] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href="#" role="menuitem">
+                <span class="material-symbols-outlined mr-3 text-xl">person</span>
+                Mi Perfil
+              </a>
+              <div class="border-t border-gray-100 dark:border-gray-700"></div>
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="w-full flex items-center px-4 py-3 text-left text-sm text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                  <span class="material-symbols-outlined mr-3 text-xl">logout</span>
+                  Cerrar sesión
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
