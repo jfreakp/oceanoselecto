@@ -191,6 +191,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+# Media files (User uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Auth redirects (configurable via environment)
 LOGIN_REDIRECT_URL = os.getenv('LOGIN_REDIRECT_URL', '/marketplace/')
 LOGOUT_REDIRECT_URL = os.getenv('LOGOUT_REDIRECT_URL', '/')
